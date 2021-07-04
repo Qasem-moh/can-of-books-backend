@@ -23,6 +23,12 @@ const getKey=(header, callback)=>{
       });
 }
 
+
+app.get('/',  (req, res) =>{ 
+    res.send('Hello World') 
+  })
+
+
 // 'Bearer ;alsdkj;laskd;lkasd;lkl'
 app.get('/authorize',(req,res)=>{
     const token=req.headers.authorization.split(' ')[1];
