@@ -1,15 +1,23 @@
 'use strict';
 const express=require('express');
+const mongoose=require('mongoose');
 const app=express();
 const cors=require('cors');
 const jwt=require('jsonwebtoken');
 const jwksClient=require('jwks-rsa');
 require('dotenv').config();
 app.use(cors());
+const BooksControllerColl=require('./controller/BooksController');
 
 
 const AUTH0_DOMAIN =process.env.AUTH0_DOMAIN
 const PORT=process.env.PORT
+
+mongoose.connect('mongodb://localhost:27017/books',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+);
+
+
 const client = jwksClient({
     // this url comes from your app on the auth0 dashboard 
     jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
@@ -24,9 +32,13 @@ const getKey=(header, callback)=>{
 }
 
 
-app.get('/',  (req, res) =>{ 
-    res.send('Hello World') 
-  })
+app.get('/', (req, res) =>{
+    console.log('home server route');
+    
+    res.send('hello world ');
+});
+
+app.get('/books', BooksControllerColl);
 
 
 // 'Bearer ;alsdkj;laskd;lkasd;lkl'
@@ -44,3 +56,6 @@ app.get('/authorize',(req,res)=>{
 app.listen(PORT,()=>{
     console.log(`listening to port: ${process.env.PORT}`);
 })
+
+
+
