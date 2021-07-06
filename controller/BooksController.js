@@ -9,7 +9,7 @@ const BooksControllerColl=(req, res)=> {
         if (error) {
             res.send(error.message)
         } 
-            res.send(userBook.books); 
+            res.send(userBook); 
         
     });
 }
