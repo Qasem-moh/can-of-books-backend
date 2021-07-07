@@ -7,7 +7,11 @@ const jwt=require('jsonwebtoken');
 const jwksClient=require('jwks-rsa');
 require('dotenv').config();
 app.use(cors());
-const BooksControllerColl=require('./controller/BooksController');
+app.use(express.json())
+const {BooksControllerColl,
+        createBooks, 
+        updateBooks,
+        deleteBook}=require('./controller/BooksController');
 
 
 const AUTH0_DOMAIN =process.env.AUTH0_DOMAIN
@@ -39,6 +43,9 @@ app.get('/', (req, res) =>{
 });
 
 app.get('/books', BooksControllerColl);
+app.post('/books',createBooks)
+app.put('/books/:book_id',updateBooks)
+app.delete('/books/:book_id',deleteBook)
 
 
 // 'Bearer ;alsdkj;laskd;lkasd;lkl'
