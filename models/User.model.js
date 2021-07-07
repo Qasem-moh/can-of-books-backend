@@ -51,7 +51,7 @@ const seedUser=()=>{
     ahmad.save()
     
 }
-
-seedUser() // you need to incommit this if its not work 
-module.exports=userModel
+seedUser()
+// you need to incommit this if its not work 
+module.exports={userModel,seedUser}
 
